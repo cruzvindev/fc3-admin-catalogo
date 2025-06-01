@@ -44,7 +44,7 @@
 //        assertEquals(1, categoryRepository.count());
 //        assertEquals(expectedName, actualCategory.getName());
 //        assertEquals(expectedDescription, actualCategory.getDescription());
-//        assertEquals(expectedIsActive, actualCategory.isActive());
+//        assertEquals(expectedIsActive, actualCategory.active());
 //        assertEquals(aCategory.getCreatedAt(), actualCategory.getCreatedAt());
 //        assertEquals(aCategory.getUpdatedAt(), actualCategory.getUpdatedAt());
 //        assertEquals(aCategory.getDeletedAt(), actualCategory.getDeletedAt());
@@ -56,7 +56,7 @@
 //        assertEquals(1, categoryRepository.count());
 //        assertEquals(expectedName, actualEntity.getName());
 //        assertEquals(expectedDescription, actualEntity.getDescription());
-//        assertEquals(expectedIsActive, actualEntity.isActive());
+//        assertEquals(expectedIsActive, actualEntity.active());
 //        assertEquals(aCategory.getCreatedAt(), actualEntity.getCreatedAt());
 //        assertEquals(aCategory.getUpdatedAt(), actualEntity.getUpdatedAt());
 //        assertEquals(aCategory.getDeletedAt(), actualEntity.getDeletedAt());
