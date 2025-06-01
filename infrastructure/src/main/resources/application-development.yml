@@ -1,0 +1,12 @@
+mysql:
+  username: root
+  password: 123456
+  schema: adm_videos
+  url: localhost:3307
+
+server:
+  port: 8080
+  undertow:
+    threads:
+      worker: 64 #Manter alto - 10 por CPU
+      io: 4 #Manter baixo - 1 por CPU

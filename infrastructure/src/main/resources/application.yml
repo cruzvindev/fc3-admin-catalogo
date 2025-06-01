@@ -1,0 +1,36 @@
+server:
+  port: 8080
+  compression: # Ativa compressão das respostas para determinados tipos de resposta e a partir de um tamanho específico de resposta
+    enabled: true
+    mime-types: text/html,text/xml,tesxt/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 1024
+
+  undertow:
+    threads:
+      worker: 64 #Manter alto - 10 por CPU
+      io: 4 #Manter baixo - 1 por CPU
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3307/adm_videos?useSSL=true&serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: 123456
+    hikari:
+      auto-commit: false #As transações não serão automaticamente confirmadas, quem fará isso será o Spring
+      connection-timeout: 250 # É uma configuração em milliseconds. O ideal é manter baixo para que estoure timeout logo e não prenda as threads.
+      max-lifetime: 600000 # Tempo máximo que uma conexão pode ficar aberta (10 min) - security.
+      idle-timeout: 60000 #Define o tempo máximo que uma conexão pode permanecer ociosa (sem uso) no pool antes de ser fechada.
+      maximum-pool-size: 20 # Mantemos até no máx 20 conexões com o banco de dados. O ideal é manter baixo mesmo, pois é algo custoso para o banco gerenciar. https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing
+      minimum-idle: 10 #Serão mantidas sempre no mínimo 10 conexões no pool
+      pool-name: master #Nome do pool
+  jpa:
+        open-in-view: false #Quando ativado faz com uma transação seja aberta desde o controller
+        show-sql: true #Exibe todas as queries sql executadas no console da aplicação
+        hibernate:
+          ddl-auto: none #Desativa a criação automática do schema do banco com base nas entidades JPA
+        properties:
+          "[hibernate.dialect]": org.hibernate.dialect.MySQLDialect #Dialeto que o hibernate deve usar para interagir com o banco
+          "[hibernate.generate_statistics]": false #Quando ativado exibe estatísicas do hibernate no console da aplicação
+          "[hibernate.connection.provider_disables_autocommit]": true #Informa para o hibernate que o auto-commit é realmente falso
+          # Para aumentar a performance ao máximo, desabilitamos o auto-commit e o open-in-view.
+          # https://vladmihalcea.com/why-you-should-always-use-hibernate-connection-provider_disables_autocommit-for-resource-local-jpa-transactions/

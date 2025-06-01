@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  mysql:
+    container_name: adm_videos_mysql
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=adm_videos
+    ##security_opt:
+     ##- seccomp:uncofined #Ela desativa o perfil de segurança seccomp (Secure Computing Mode) do container,
+                              #permitindo que ele execute qualquer chamada de sistema do kernel sem restrições.
+    ports:
+      - 3307:3306
+    networks:
+      - adm_videos_network
+
+networks:
+  adm_videos_network:
