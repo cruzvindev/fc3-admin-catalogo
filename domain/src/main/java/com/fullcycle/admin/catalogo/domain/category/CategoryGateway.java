@@ -9,5 +9,5 @@ public interface CategoryGateway {
     void deleteById(CategoryID anId);
     Optional<Category> findById(CategoryID anId);
     Category update(Category aCategory);
-   Pagination<Category> findAll(CategorySearchQuery aQuery);
+    Pagination<Category> findAll(CategorySearchQuery aQuery);
 }

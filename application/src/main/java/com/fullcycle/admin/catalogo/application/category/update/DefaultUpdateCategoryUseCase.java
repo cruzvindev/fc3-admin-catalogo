@@ -13,6 +13,8 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 import static io.vavr.API.Left;
+import static io.vavr.API.Try;
+
 public class DefaultUpdateCategoryUseCase extends UpdateCategoryUseCase{
 
     private final CategoryGateway categoryGateway;
@@ -40,7 +42,7 @@ public class DefaultUpdateCategoryUseCase extends UpdateCategoryUseCase{
     }
 
     private Either<Notification, UpdateCategoryOutput> update(final Category aCategory){
-        return API.Try(() -> this.categoryGateway.update(aCategory))
+        return Try(() -> this.categoryGateway.update(aCategory))
                 .toEither()
                 .bimap(Notification::create, UpdateCategoryOutput::from);
     }

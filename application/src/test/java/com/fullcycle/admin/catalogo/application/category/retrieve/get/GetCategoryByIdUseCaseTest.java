@@ -1,7 +1,5 @@
 package com.fullcycle.admin.catalogo.application.category.retrieve.get;
 
-import com.fullcycle.admin.catalogo.application.category.retrieve.get.CategoryOutput;
-import com.fullcycle.admin.catalogo.application.category.retrieve.get.DefaultGetCategoryByIdUseCase;
 import com.fullcycle.admin.catalogo.domain.category.Category;
 import com.fullcycle.admin.catalogo.domain.category.CategoryGateway;
 import com.fullcycle.admin.catalogo.domain.category.CategoryID;
@@ -18,7 +16,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.anyChar;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
@@ -50,7 +47,7 @@ public class GetCategoryByIdUseCaseTest {
     }
 
     @Test
-    public void givenAInalidId_whenCallsGetCategory_shouldReturnNotFound(){
+    public void givenAInvalidId_whenCallsGetCategory_shouldReturnNotFound(){
         final var expectedErrorMessage = "Category with ID 123 was not found";
         final var expectedId = CategoryID.from("123");
 
