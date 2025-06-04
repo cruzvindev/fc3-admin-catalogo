@@ -4,6 +4,7 @@ import com.fullcycle.admin.catalogo.IntegrationTest;
 import com.fullcycle.admin.catalogo.domain.category.Category;
 import com.fullcycle.admin.catalogo.domain.category.CategoryGateway;
 import com.fullcycle.admin.catalogo.domain.category.CategoryID;
+import com.fullcycle.admin.catalogo.domain.exceptions.NotFoundException;
 import com.fullcycle.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity;
 import com.fullcycle.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
 import org.junit.jupiter.api.Test;
@@ -58,10 +59,7 @@ public class GetCategoryByIdUseCaseIT {
         final var expectedErrorMessage = "Category with ID 123 was not found";
         final var expectedId = CategoryID.from("123");
 
-        doThrow(new IllegalStateException(expectedErrorMessage))
-                .when(categoryGateway).findById(expectedId);
-
-        final var actualException = assertThrows(IllegalStateException.class,
+        final var actualException = assertThrows(NotFoundException.class,
                 () -> useCase.execute(expectedId.getValue()));
 
         assertEquals(expectedErrorMessage, actualException.getMessage());
