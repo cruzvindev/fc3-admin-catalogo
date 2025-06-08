@@ -4,6 +4,7 @@ import com.fullcycle.admin.catalogo.domain.category.Category;
 import com.fullcycle.admin.catalogo.domain.category.CategoryGateway;
 import com.fullcycle.admin.catalogo.domain.category.CategoryID;
 import com.fullcycle.admin.catalogo.domain.exceptions.DomainException;
+import com.fullcycle.admin.catalogo.domain.exceptions.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -170,23 +171,29 @@ public class UpdateCategoryUseCaseTest {
     }
 
     @Test
-    public void givenACommandWithInvalidID_whenCallsUpdateCategory_shouldReturnNotFoundException(){
+    public void givenACommandWithInvalidID_whenCallsUpdateCategory_shouldReturnNotFoundException() {
         final var expectedName = "Filmes";
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsActive = false;
         final var expectedId = "123";
         final var expectedErrorMessage = "Category with ID 123 was not found";
-        final var expectedErrorCount = 1;
-        final var aCommand = UpdateCategoryCommand.with(expectedId, expectedName, expectedDescription, expectedIsActive);
 
-        when(categoryGateway.findById(eq(CategoryID.from(expectedId)))).thenReturn(Optional.empty());
+        final var aCommand = UpdateCategoryCommand.with(
+                expectedId,
+                expectedName,
+                expectedDescription,
+                expectedIsActive
+        );
 
-        final var actualException = assertThrows(DomainException.class, () -> useCase.execute(aCommand));
+        when(categoryGateway.findById(eq(CategoryID.from(expectedId))))
+                .thenReturn(Optional.empty());
 
-        assertEquals(expectedErrorCount, actualException.getErrors().size());
-        assertEquals(expectedErrorMessage, actualException.getErrors().get(0).message());
+        final var actualException = assertThrows(NotFoundException.class, () -> useCase.execute(aCommand));
+
+        assertEquals(expectedErrorMessage, actualException.getMessage());
 
         verify(categoryGateway, times(1)).findById(eq(CategoryID.from(expectedId)));
+
         verify(categoryGateway, times(0)).update(any());
     }
 
