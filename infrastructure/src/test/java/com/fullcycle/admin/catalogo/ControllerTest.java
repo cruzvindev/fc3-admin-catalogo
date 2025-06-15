@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-@ActiveProfiles("test")
+@ActiveProfiles("test-integration")
 @WebMvcTest // Scans for @Controller, @RestController, and @RequestMapping only
 @ExtendWith(SpringExtension.class)
 @Import(ObjectMapperConfig.class) // Import any necessary configuration classes

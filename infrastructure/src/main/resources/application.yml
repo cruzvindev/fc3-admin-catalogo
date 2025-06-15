@@ -12,9 +12,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3307/adm_videos?useSSL=true&serverTimezone=UTC&characterEncoding=UTF-8
-    username: root
-    password: 123456
+    url: jdbc:mysql://${mysql.url}/${mysql.schema}?useSSL=true&serverTimezone=UTC&characterEncoding=UTF-8
+    username: ${mysql.username}
+    password: ${mysql.password}
     hikari:
       auto-commit: false #As transações não serão automaticamente confirmadas, quem fará isso será o Spring
       connection-timeout: 250 # É uma configuração em milliseconds. O ideal é manter baixo para que estoure timeout logo e não prenda as threads.
