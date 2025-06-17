@@ -17,7 +17,7 @@ public interface ValidationHandler {
 
     default Error firstError(){
         if(getErrors() != null && !getErrors().isEmpty()){
-            return getErrors().get(0);
+            return getErrors().getFirst();
         } else {
             return null;
         }
