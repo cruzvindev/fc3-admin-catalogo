@@ -2,6 +2,7 @@ package com.fullcycle.admin.catalogo.domain.genre;
 
 import com.fullcycle.admin.catalogo.domain.AggregateRoot;
 import com.fullcycle.admin.catalogo.domain.category.CategoryID;
+import com.fullcycle.admin.catalogo.domain.utils.InstantUtils;
 import com.fullcycle.admin.catalogo.domain.validation.ValidationHandler;
 
 import java.time.Instant;
@@ -48,8 +49,8 @@ public class Genre extends AggregateRoot<GenreID> {
                 aName,
                 isActive,
                 new ArrayList<>(),
-                Instant.now(),
-                Instant.now(),
+                InstantUtils.now(),
+                InstantUtils.now(),
                 null
         );
     }
@@ -114,5 +115,21 @@ public class Genre extends AggregateRoot<GenreID> {
 
     public Instant getDeletedAt() {
         return deletedAt;
+    }
+
+    public Genre deactivate() {
+       if(this.deletedAt == null) {
+              this.deletedAt = InstantUtils.now();
+       }
+       this.active = false;
+       this.updatedAt = Instant.now();
+       return this;
+    }
+
+    public Genre activate() {
+        this.deletedAt = null;
+        this.active = true;
+        this.updatedAt = InstantUtils.now();
+        return this;
     }
 }
